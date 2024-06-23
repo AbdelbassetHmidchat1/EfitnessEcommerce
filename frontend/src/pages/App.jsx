@@ -11,7 +11,9 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import Footer from "../components/Footer";
 import { Fade } from "react-awesome-reveal";
-import useUser from "../auth/useUser";
+import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 export default function App() {
   const responsive = {
@@ -33,6 +35,15 @@ export default function App() {
     },
   };
 
+  const [items, setItems] = useState([]);
+  useEffect(() => {
+    const retrieveItems = async () => {
+      const response = await axios.get("http://localhost:4000/api/items");
+      setItems(response.data.items);
+    };
+    retrieveItems();
+  }, [items]);
+  const men = items.filter((item) => item.category === "Men");
 
   return (
     <>
@@ -40,7 +51,6 @@ export default function App() {
       <Fade>
         <main
           className={`w-full bg-black grid place-items-center h-[calc(100vh-144px)]  bg-cover bg-center `}
-          id="Home"
           style={{
             backgroundImage: `url(${gym})`,
           }}
@@ -91,9 +101,11 @@ export default function App() {
                   <span className="text-4xl text-blue-400"> gender</span> thing
                   <h1 className="text-5xl mb-12">It's a motivation thing</h1>
                 </h1>
-                <button className=" py-2 px-4 text-2xl transition-all duration-700   bg-white hover:bg-[#bc8060] text-black hover:text-white ">
-                  Shop now
-                </button>
+                <a href="#shop">
+                  <button className=" my-6 py-2 px-4  text-2xl text-black hover:text-white transition-all duration-700   bg-white hover:bg-black border-white border ">
+                    Shop now
+                  </button>
+                </a>
               </div>
             </div>
           </div>
@@ -114,14 +126,50 @@ export default function App() {
                   <span className="text-4xl text-blue-400">gender</span> thing
                   <h1 className="text-5xl">It's a motivation thing</h1>
                 </h1>
-                <button className=" my-6 py-2 px-4  text-2xl text-black hover:text-white transition-all duration-700   bg-white hover:bg-black ">
-                  Shop now
-                </button>
+                <a href="#shop">
+                  <button className=" my-6 py-2 px-4  text-2xl text-black hover:text-white transition-all duration-700   bg-white hover:bg-black border-white border ">
+                    Shop now
+                  </button>
+                </a>
               </div>
             </div>
           </div>
         </Fade>
       </Carousel>
+      <Fade>
+        <div className="w-full py-16" id="shop">
+          <h1 className="text-4xl text-center pb-16 pt-28">First Release</h1>
+          <div className="md:flex md:w-full md:justify-around grid grid-cols-2 grid-rows-2 place-items-center">
+            {men.map((item, index) => (
+              <Link to={`/product/${item._id}`}>
+                <div key={index} className="py-4">
+                  <style>
+                    {`
+                   .hover-image-${index} {
+                     background-image: url(${item.url[1]});
+                   }
+                   .hover-image-${index}:hover {
+                     background-image: url(${item.url[0]});
+                   }
+                `}
+                  </style>
+                  <div
+                    className={`hover-image-${index} md:w-[20vw] md:h-[20vw]  transition-all duration-500 bg-cover w-[40vw] h-[40vw] `}
+                    alt={item.description}
+                  />
+                  <p className="text-white text-sm max-w-[40vw]">{item.name}</p>
+                  <p className="text-gray-500 text-sm">
+                    {item.price} <span className="text-green-800">DH</span>
+                  </p>
+                </div>
+              </Link>
+            ))}
+          </div>
+          <button className=" mx-auto block my-6 py-2 px-4  text-2xl text-black hover:text-white transition-all duration-700   bg-white hover:bg-black rounded border-white border ">
+            <Link to={"/products"}>View all products</Link>
+          </button>
+        </div>
+      </Fade>
       <Fade>
         <div className="w-full bg-[#131014] flex flex-col py-16">
           <h1 className="text-center text-4xl"> From Black Lovers</h1>

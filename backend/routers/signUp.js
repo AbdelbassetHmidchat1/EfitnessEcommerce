@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const User = require("../models/User");
 const jwt = require("jsonwebtoken");
 const sendEmail = require("../utils/sendEmail");
-require("dotenv").config();
+require("dotenv").config("../.env");
 
 const router = express.Router();
 
@@ -16,17 +16,22 @@ router.post("/signup", async (req, res) => {
       password: password,
     });
     const payload = {
+      _id:user._id,
       username: user.username,
-      email: user.email,
-      password: user.password,
       isVerified: user.isVerified,
+      email: user.email,
     };
-    await sendEmail({
-      from: "suoad398@gmail.com",
-      to: user.email,
-      subject: "verify your account",
-      text: `to verify your email go to the following page: http://localhost:3000/verify-email/${user.uuid}`,
-    });
+    try {
+      const response = await sendEmail({
+        from: "suoad398@gmail.com",
+        to: user.email,
+        subject: "verify your account",
+        text: `to verify your email go to the following page: http://localhost:3000/verify-email/${user.uuid}`,
+      });
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
     const token = jwt.sign(payload, process.env.JWT_SECRET, {
       expiresIn: "2d",
     });

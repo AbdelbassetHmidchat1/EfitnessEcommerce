@@ -1,8 +1,8 @@
-import { useState } from "react";
-import { IoCartOutline } from "react-icons/io5";
+import { useState, useEffect } from "react";
+import { IoCartOutline, IoClose } from "react-icons/io5";
 import { IoIosMenu } from "react-icons/io";
 import { AiOutlineUser } from "react-icons/ai";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import useUser from "../auth/useUser";
 
 export default function Header() {
@@ -11,6 +11,13 @@ export default function Header() {
     setIsOpen((isOpen) => !isOpen);
     console.log(isOpen);
   };
+  const user = useUser();
+
+  const logout = () => {
+    localStorage.removeItem("token");
+  };
+  useEffect(() => {}, [user]);
+  const navigate = useNavigate();
 
   return (
     <>
@@ -21,28 +28,41 @@ export default function Header() {
             <NavLink className="my-12 mx-4" to="/">
               <li>Home</li>
             </NavLink>
-            <NavLink className="my-12 mx-4" to="/login">
-              <li>Login</li>
-            </NavLink>
-            <NavLink className="my-12 mx-4" to="/contact">
-              <li>Contact us</li>
+            {user ? (
+              <>
+                <a className="my-12 mx-4" href="/" onClick={logout}>
+                  <li>Log out</li>
+                </a>
+              </>
+            ) : (
+              <>
+                <NavLink className="my-12 mx-4" to="/login">
+                  <li>Login</li>
+                </NavLink>
+              </>
+            )}
+
+            <NavLink className="my-12 mx-4" to="/products">
+              <li>Products</li>
             </NavLink>
           </ul>
         </nav>
         <nav>
           <ul className="w-full flex justify-end items-center text-xl">
             <li className="mx-2 ">
-              <IoCartOutline className="size-12" />
+              <IoCartOutline
+                className="size-12"
+                onClick={() => (user ? navigate("/cart") : navigate("/login"))}
+              />
             </li>
-            <li className="mx-2 hidden md:block my-12">
-              <AiOutlineUser className="size-12" />
-            </li>
-            <li className="mx-2 my-12 md:hidden" onClick={toggleOpen}>
+            <li className="mx-2 my-12 " onClick={toggleOpen}>
               <IoIosMenu className="size-12 transition-all duration-700 hover:rotate-90" />
             </li>
           </ul>
         </nav>
+        {user && <nav className="md:block hidden" >Hello {user.username}</nav>}
       </header>
+
       <nav
         className={`fixed h-screen top-0 z-20 left-0 w-screen flex transition-all  duration-300 ${
           isOpen ? "visible opacity-100" : "invisible opacity-0"
@@ -52,7 +72,7 @@ export default function Header() {
           className="text-sm absolute top-10 right-10 z-20 cursor-pointer text-white"
           onClick={toggleOpen}
         >
-          close
+          <IoClose className="size-12 transition-all duration-700 hover:rotate-90" />
         </h1>
         <div
           className={`w-full  bg-black h-full duration-300 transition-all opacity-30`}
@@ -63,13 +83,23 @@ export default function Header() {
           }   `}
         >
           <ul className="w-full text-xl text-white h-full  flex flex-col justify-around items-center py-28 px-8">
-            <li>Home</li>
+            {user ? (
+              <NavLink to={"/cart"}>
+                <li>Cart</li>{" "}
+              </NavLink>
+            ) : (
+              <NavLink to={"/login"}>
+                <li>Login</li>{" "}
+              </NavLink>
+            )}
             <hr className="w-full" />
-            <li>Login</li>
+            <NavLink to={"/contact"}>
+              <li>Contact us</li>
+            </NavLink>
             <hr className="w-full" />
-            <li>Contact us</li>
-            <hr className="w-full" />
-            <li>About us</li>
+            <a href="/#footer">
+              <li>About us</li>
+            </a>
           </ul>
         </div>
       </nav>

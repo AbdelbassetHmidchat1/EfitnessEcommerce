@@ -48,6 +48,13 @@
     outline: none;
   }
 }
+.transition {
+  opacity: 0;
+  transition: opacity 800ms;
+}
+
+
+
 
 .react-multi-carousel-list ul li:hover {
   color: white;

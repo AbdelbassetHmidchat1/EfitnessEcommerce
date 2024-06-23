@@ -5,6 +5,7 @@ import {
   IoLogoTwitter,
   IoLogoYoutube,
 } from "react-icons/io";
+import { NavLink } from "react-router-dom";
 
 export default function Footer() {
   return (
@@ -42,15 +43,18 @@ export default function Footer() {
         <div>
           <h1 className="mb-8 text-4xl  ">Information</h1>
           <ul className="divide-black divide-y-8">
-            <li>Our blog</li>
-            <li>Reviews</li>
+            <NavLink to={"/contact"}>
+              <li>Contact us</li>
+            </NavLink>
           </ul>
         </div>
         <div>
           <h1 className="mb-8 text-4xl">Quick</h1>
           <ul className=" divide-black divide-y-8 ">
-            <li>Contact us</li>
-            <li>Shop now</li>
+            <NavLink to={"/products"}>
+              <li>Shop now</li>
+            </NavLink>
+            {/* <a href="https://api.whatsapp.com/send?phone=212659550403&text=[rffoeroferoifebf]">Send Message</a> */}
           </ul>
         </div>
       </div>

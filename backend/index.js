@@ -5,14 +5,28 @@ const cors = require("cors");
 const app = express();
 const login = require("./routers/login");
 const signUp = require("./routers/signUp");
+const forgotPassword = require("./routers/forgotPassword");
+const resetPassword = require("./routers/resetPassword");
 const verifyEmail = require("./routers/verifyEmail");
-require("dotenv").config();
+const itemAdd = require("./routers/itemAdd");
+const cartAdd = require("./routers/cartAdd");
+const fetchItems = require("./routers/fetchItems");
+const fetchCart = require("./routers/fetchCart");
+const deleteItem = require("./routers/deleteItem");
 
+require("dotenv").config();
 app.use(express.json());
 app.use(cors());
 app.use("/api", login);
 app.use("/api", signUp);
 app.use("/api", verifyEmail);
+app.use("/api", forgotPassword);
+app.use("/api", resetPassword);
+app.use("/api", itemAdd);
+app.use("/api", cartAdd);
+app.use("/api", fetchItems);
+app.use("/api", fetchCart);
+app.use("/api", deleteItem);
 
 app.get("/", (req, res) => {
   res.send("hi");

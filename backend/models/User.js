@@ -21,6 +21,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  passwordResetCode: {
+    type: String,
+    default: uuidv4(),
+  },
   isVerified: {
     type: Boolean,
     default: false,
@@ -32,9 +36,12 @@ userSchema.pre("save", async function (next) {
   try {
     const hash = await bcrypt.hash(user.password, 10);
     user.password = hash;
+    if (user.isModified("password")) {
+      user.passwordResetCode = uuidv4();
+    }
     next();
   } catch (error) {
-    console.log(error);
+    next(error);
   }
 });
 

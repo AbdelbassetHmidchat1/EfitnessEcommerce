@@ -16,7 +16,7 @@ export default function Contact() {
         <h1 className="text-5xl mb-4 text-center"> Contact Us </h1>
         <div className="flex-1 md:flex  p-16 md:gap-x-8 w-full  justify-between items-center">
           <div className="md:w-1/2 w-full h-full flex items-center justify-center">
-          <div className="bg-[#131014] md:w-fit w-full   gap-y-16 h-full flex flex-col justify-between items-center py-8 ">
+          <div className="bg-[#131014] md:w-fit w-full    gap-y-16 h-full flex flex-col justify-between items-center py-8 ">
             <div className="  grid place-items-center grid-cols-2 h-full  gap-x-8  px-8">
               <IoMdRewind className="w-16 h-16 text-[#bc8060] justify-self-start" />
               <div className="divide-y-8 divide-[#131014] justify-self-start ">

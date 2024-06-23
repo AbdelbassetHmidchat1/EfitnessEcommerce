@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const ObjectID = mongoose.Schema.Types.ObjectId;
 
 const productSchema = new mongoose.Schema(
   {
@@ -19,12 +20,16 @@ const productSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
+    url: {
+      type: [String],
+      default: [],
+    },
   },
   {
     timestamps: true,
   }
 );
 
-const Product = mongoose.model("product", productSchema);
+const Product = mongoose.model("Product", productSchema);
 
 module.exports = Product;

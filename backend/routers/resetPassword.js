@@ -1,20 +1,21 @@
 const express = require("express");
-const mongoose = require("mongoose");
 const User = require("../models/User");
 const jwt = require("jsonwebtoken");
 require("dotenv").config("../.env");
 
 const router = express.Router();
 
-router.post("/verify-email", async (req, res) => {
-  const { uuid } = req.body;
-  const user = await User.findOne({ uuid: uuid });
+router.put("/reset-password", async (req, res) => {
+  const { password, passwordResetCode } = req.body;
+  console.log(passwordResetCode);
+  const user = await User.findOne({ passwordResetCode: passwordResetCode });
+  console.log(user);
+  user.password = password;
+  await user.save();
 
   if (user) {
-    user.isVerified = true;
-    await user.save();
     const payload = {
-      _id: user._id,
+      _id:user._id,
       username: user.username,
       isVerified: user.isVerified,
       email: user.email,
@@ -23,7 +24,9 @@ router.post("/verify-email", async (req, res) => {
       expiresIn: "2d",
     });
     res.json({ token });
-  } else res.json({ message: "verification link invalid" });
+  } else {
+    res.json({ message: "invalid uuid" });
+  }
 });
 
 module.exports = router;

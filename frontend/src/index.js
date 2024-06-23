@@ -10,6 +10,10 @@ import Product from "./pages/Product";
 import SignUp from "./pages/SignIn";
 import EmailSent from "./pages/EmailSent";
 import VerifyEmail from "./pages/VerifyEmail";
+import ForgotPassword from "./pages/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword";
+import Products from "./pages/Products";
+import Cart from "./pages/Cart";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -18,11 +22,18 @@ root.render(
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<SignUp />} />
+        <Route path="/sign-up" element={<SignUp />} />
+        <Route path="/cart" element={<Cart />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/product" element={<Product />} />
+        <Route path="/product/:_id" element={<Product />} />
+        <Route path="/products" element={<Products />} />
         <Route path="/email-sent" element={<EmailSent />} />
         <Route path="/verify-email/:uuid" element={<VerifyEmail />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route
+          path="/reset-password/:passwordResetCode"
+          element={<ResetPassword />}
+        />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
