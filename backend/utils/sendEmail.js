@@ -1,8 +1,7 @@
 const sendGrid = require("@sendgrid/mail");
-const dotenv = require("dotenv");
 
 // Load environment variables from .env file
-dotenv.config({ path: "../.env" });
+require("dotenv").config();
 
 // Initialize SendGrid with the API key
 sendGrid.setApiKey(process.env.SENDGRID_API_KEY);

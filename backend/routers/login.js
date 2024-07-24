@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const User = require("../models/User");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-require("dotenv").config("../.env");
+require("dotenv").config();
 
 const router = express.Router();
 

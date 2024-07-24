@@ -1,7 +1,7 @@
 const express = require("express");
 const sendEmail = require("../utils/sendEmail");
 const User = require("../models/User");
-require("dotenv").config("../.env");
+require("dotenv").config();
 
 const router = express.Router();
 

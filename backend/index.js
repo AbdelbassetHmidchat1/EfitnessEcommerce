@@ -1,7 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 
-require("dotenv").config("./.env");
+require("dotenv").config();
 
 mongoose.connect(process.env.MONGODB_URL);
 
@@ -17,6 +17,8 @@ const cartAdd = require("./routers/cartAdd");
 const fetchItems = require("./routers/fetchItems");
 const fetchCart = require("./routers/fetchCart");
 const deleteItem = require("./routers/deleteItem");
+
+const port = process.env.PORT
 
 app.use(express.json());
 app.use(cors());
@@ -35,6 +37,6 @@ app.get("/", (req, res) => {
   res.send("hi");
 });
 
-app.listen(4000, () => {
+app.listen(port, () => {
   console.log("at 4000");
 });
