@@ -13,7 +13,7 @@ export default function Product() {
     console.log(_id);
     const retrieveItems = async () => {
       try {
-        const response = await axios.get("http://localhost:4000/api/items");
+        const response = await axios.get("https://serverefitcommerce.vercel.app/api/items");
         setItems(response.data.items);
         console.log(items);
       } catch (error) {
@@ -32,7 +32,7 @@ export default function Product() {
     try {
       if (userId) {
         const response = await axios.post(
-          "http://localhost:4000/api/add-cart",
+          "https://serverefitcommerce.vercel.app/api/add-cart",
           {
             userId,
             itemId,

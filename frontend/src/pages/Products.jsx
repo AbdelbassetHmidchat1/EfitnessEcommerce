@@ -28,7 +28,7 @@ export default function Products() {
   const filteredItems = getFilteredItems();
   useEffect(() => {
     const retrieveItems = async () => {
-      const response = await axios.get("http://localhost:4000/api/items");
+      const response = await axios.get("https://serverefitcommerce.vercel.app/api/items");
       setItems(response.data.items);
     };
     retrieveItems();

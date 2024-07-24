@@ -11,7 +11,7 @@ export default function VerifyEmail() {
   useEffect(() => {
     const verify = async () => {
       const response = await axios.post(
-        "http://localhost:4000/api/verify-email",
+        "https://serverefitcommerce.vercel.app/api/verify-email",
         {
           uuid,
         }

@@ -36,7 +36,7 @@ export default function SignUp() {
     }
 
     try {
-      const response = await axios.post("http://localhost:4000/api/signup", {
+      const response = await axios.post("https://serverefitcommerce.vercel.app/api/signup", {
         username,
         email,
         password,

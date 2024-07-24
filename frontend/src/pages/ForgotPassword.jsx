@@ -7,7 +7,7 @@ export default function ForgotPassword() {
   const navigate = useNavigate();
   const submit = async () => {
     const response = await axios.post(
-      "http://localhost:4000/api/forgot-password",
+      "https://serverefitcommerce.vercel.app/api/forgot-password",
       { email }
     );
     navigate("/");

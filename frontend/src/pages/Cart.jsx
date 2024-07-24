@@ -15,7 +15,7 @@ export default function Cart() {
   useEffect(() => {
     console.log(user);
     const fetchCart = async () => {
-      const response = await axios.post("http://localhost:4000/api/cart", {
+      const response = await axios.post("https://serverefitcommerce.vercel.app/api/cart", {
         userId,
       });
 
@@ -34,7 +34,7 @@ export default function Cart() {
   const deleteItem = async (itemId) => {
     try {
       const response = await axios.put(
-        "http://localhost:4000/api/delete-item",
+        "https://serverefitcommerce.vercel.app/api/delete-item",
         { itemId, userId }
       );
       setItems(response.data.cart);

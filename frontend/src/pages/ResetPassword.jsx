@@ -18,7 +18,7 @@ export default function ResetPassword() {
     }
 
     try {
-      const response = await axios.put("http://localhost:4000/api/reset-password", {
+      const response = await axios.put("https://serverefitcommerce.vercel.app/api/reset-password", {
         password,
         passwordResetCode,
       });
