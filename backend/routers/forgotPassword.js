@@ -17,7 +17,7 @@ router.post("/forgot-password", async (req, res) => {
           from: "suoad398@gmail.com",
           to: user.email,
           subject: "Forgot your password",
-          text: `to change your password click here http://localhost:3000/reset-password/${user.passwordResetCode}`,
+          text: `to change your password click here https://efitnessecommerce.vercel.app/reset-password/${user.passwordResetCode}`,
         });
         console.log(response);
       } catch (error) {
