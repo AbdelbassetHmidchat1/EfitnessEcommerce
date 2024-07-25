@@ -28,7 +28,7 @@ router.post("/signup", async (req, res) => {
         from: "suoad398@gmail.com",
         to: user.email,
         subject: "verify your account",
-        text: `to verify your email go to the following page: http://localhost:3000/verify-email/${user.uuid}`,
+        text: `to verify your email go to the following page: https://efitnessecommerce.vercel.app/verify-email/${user.uuid}`,
       });
       console.log(response);
     } catch (error) {
